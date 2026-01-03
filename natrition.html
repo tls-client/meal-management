@@ -1,0 +1,19 @@
+<input id="food" placeholder="食材名">
+<input id="grams" type="number" placeholder="g">
+<button onclick="calc()">計算</button>
+<pre id="result"></pre>
+
+<script>
+function calc() {
+  fetch("/api/nutrition", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      food: food.value,
+      grams: grams.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => result.textContent = JSON.stringify(data, null, 2));
+}
+</script>
